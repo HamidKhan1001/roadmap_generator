@@ -1,0 +1,92 @@
+[
+  {
+    "id": "python_backend",
+    "name": "Python Backend Developer",
+    "summary": "Learn Python, APIs, databases, authentication, testing, deployment, and production backend patterns.",
+    "base_weeks": 18,
+    "keywords": ["python", "backend", "api", "flask", "fastapi", "django", "server", "database"],
+    "modules": [
+      {"title": "Python Foundations", "outcomes": ["Write clean Python functions", "Use lists, dictionaries, files, and exceptions", "Understand virtual environments"], "tasks": ["Build CLI mini tools", "Practice 30 Python problems"], "project": "Command-line habit tracker"},
+      {"title": "Web APIs", "outcomes": ["Build REST APIs", "Validate request payloads", "Return structured JSON responses"], "tasks": ["Build CRUD endpoints", "Use Postman or Thunder Client"], "project": "Student management API"},
+      {"title": "Databases", "outcomes": ["Use MongoDB/PostgreSQL", "Design collections/tables", "Create indexes"], "tasks": ["Model users and roadmaps", "Add search endpoints"], "project": "Roadmap storage backend"},
+      {"title": "Production Readiness", "outcomes": ["Write tests", "Add logging", "Deploy backend"], "tasks": ["Add pytest", "Deploy API to Heroku/Render/Railway"], "project": "Production-ready API with tests"}
+    ],
+    "portfolio_projects": ["Roadmap generator API", "Blog API with auth", "Job tracker backend"],
+    "next_steps": ["Learn Docker", "Learn Redis queues", "Study system design basics"]
+  },
+  {
+    "id": "ai_ml",
+    "name": "AI / Machine Learning Engineer",
+    "summary": "Build a foundation in Python, statistics, machine learning, deep learning, model evaluation, and deployment.",
+    "base_weeks": 26,
+    "keywords": ["ai", "ml", "machine learning", "deep learning", "pytorch", "tensorflow", "llm", "rag", "data science"],
+    "modules": [
+      {"title": "Python + Math Basics", "outcomes": ["Use NumPy and Pandas", "Understand vectors, matrices, derivatives, and probability"], "tasks": ["Practice data cleaning", "Revise linear algebra basics"], "project": "Data analysis notebook"},
+      {"title": "Classical ML", "outcomes": ["Train regression/classification models", "Evaluate precision, recall, F1", "Avoid data leakage"], "tasks": ["Build scikit-learn pipelines", "Compare 3 models"], "project": "Fake task detection model"},
+      {"title": "Deep Learning", "outcomes": ["Understand neural networks, CNNs, transfer learning", "Train PyTorch models"], "tasks": ["Train image classifier", "Plot loss curves"], "project": "Cats vs dogs classifier"},
+      {"title": "Deployment + MLOps Basics", "outcomes": ["Serve a model through API", "Track experiments", "Monitor model behavior"], "tasks": ["Create inference endpoint", "Write model card"], "project": "ML model API"}
+    ],
+    "portfolio_projects": ["Image classifier", "RAG chatbot", "ML API with monitoring"],
+    "next_steps": ["Learn transformers", "Practice Kaggle", "Read top ML papers slowly"]
+  },
+  {
+    "id": "frontend_react",
+    "name": "Frontend Developer",
+    "summary": "Learn HTML, CSS, JavaScript, React, Next.js, API integration, responsive UI, and deployment.",
+    "base_weeks": 16,
+    "keywords": ["frontend", "react", "next", "javascript", "html", "css", "ui", "website", "vercel"],
+    "modules": [
+      {"title": "HTML/CSS Foundations", "outcomes": ["Create semantic layouts", "Use flexbox/grid", "Build responsive pages"], "tasks": ["Clone 3 landing pages", "Practice CSS cards"], "project": "Personal portfolio"},
+      {"title": "JavaScript", "outcomes": ["Understand DOM, async JS, fetch", "Write reusable functions"], "tasks": ["Build form validation", "Call public APIs"], "project": "Weather app"},
+      {"title": "React", "outcomes": ["Use components, props, state, effects", "Handle forms and API calls"], "tasks": ["Create reusable components", "Render dynamic data"], "project": "Roadmap frontend"},
+      {"title": "Next.js + Deployment", "outcomes": ["Use app router basics", "Deploy to Vercel", "Connect to backend API"], "tasks": ["Configure environment variables", "Improve SEO basics"], "project": "Production frontend"}
+    ],
+    "portfolio_projects": ["Portfolio website", "Roadmap generator UI", "Dashboard with API"],
+    "next_steps": ["Learn TypeScript", "Learn UI testing", "Study accessibility"]
+  },
+  {
+    "id": "full_stack",
+    "name": "Full-Stack Web Developer",
+    "summary": "Learn frontend, backend, databases, authentication, deployment, testing, and end-to-end product building.",
+    "base_weeks": 24,
+    "keywords": ["full stack", "fullstack", "mern", "web developer", "frontend backend", "saas", "startup"],
+    "modules": [
+      {"title": "Frontend Basics", "outcomes": ["Build responsive UI", "Use React components"], "tasks": ["Create forms", "Fetch backend data"], "project": "Landing page + dashboard"},
+      {"title": "Backend APIs", "outcomes": ["Build REST APIs", "Validate data", "Handle errors"], "tasks": ["Create CRUD API", "Add tests"], "project": "Roadmap API"},
+      {"title": "Database + Auth", "outcomes": ["Use MongoDB", "Design schemas", "Add login/signup"], "tasks": ["Store users", "Secure endpoints"], "project": "User roadmap app"},
+      {"title": "Deployment", "outcomes": ["Deploy frontend and backend", "Use env variables", "Monitor errors"], "tasks": ["Deploy to Vercel + Heroku", "Set CORS correctly"], "project": "Live SaaS MVP"}
+    ],
+    "portfolio_projects": ["SaaS dashboard", "Roadmap generator", "Appointment booking app"],
+    "next_steps": ["Learn payments", "Learn Docker", "Study scalable architecture"]
+  },
+  {
+    "id": "data_analyst",
+    "name": "Data Analyst",
+    "summary": "Learn Excel, SQL, Python, dashboards, statistics, business analysis, and storytelling with data.",
+    "base_weeks": 18,
+    "keywords": ["data analyst", "excel", "sql", "dashboard", "power bi", "tableau", "analytics"],
+    "modules": [
+      {"title": "Excel + Spreadsheet Thinking", "outcomes": ["Clean data", "Use formulas and pivot tables", "Create charts"], "tasks": ["Analyze sales data", "Build pivot reports"], "project": "Excel sales dashboard"},
+      {"title": "SQL", "outcomes": ["Write SELECT, JOIN, GROUP BY queries", "Understand relational data"], "tasks": ["Practice 50 SQL queries", "Analyze customer data"], "project": "SQL business report"},
+      {"title": "Python Analysis", "outcomes": ["Use Pandas", "Clean datasets", "Create visualizations"], "tasks": ["Analyze CSV files", "Generate charts"], "project": "Python EDA notebook"},
+      {"title": "Dashboard + Storytelling", "outcomes": ["Create dashboards", "Explain insights clearly", "Make decisions from data"], "tasks": ["Build Power BI/Tableau dashboard", "Write insight summary"], "project": "Executive dashboard"}
+    ],
+    "portfolio_projects": ["Excel dashboard", "SQL analysis case study", "Power BI dashboard"],
+    "next_steps": ["Learn statistics", "Practice case studies", "Build a public portfolio"]
+  },
+  {
+    "id": "content_creator",
+    "name": "Content Creator / Video Editor",
+    "summary": "Learn niche selection, scripting, shooting, editing, thumbnails, posting strategy, and monetization basics.",
+    "base_weeks": 12,
+    "keywords": ["content", "youtube", "vlog", "video editing", "instagram", "tiktok", "reels", "creator"],
+    "modules": [
+      {"title": "Niche + Scripting", "outcomes": ["Choose a clear niche", "Write hooks and short scripts", "Plan content calendar"], "tasks": ["Write 20 content ideas", "Record 5 short scripts"], "project": "30-day content plan"},
+      {"title": "Shooting Basics", "outcomes": ["Use phone camera properly", "Improve lighting and audio", "Capture B-roll"], "tasks": ["Shoot indoor/outdoor clips", "Practice voiceover"], "project": "One-minute vlog"},
+      {"title": "Editing", "outcomes": ["Cut clean videos", "Use captions", "Add music and pacing"], "tasks": ["Edit 10 reels", "Create 3 thumbnail styles"], "project": "Edited reel series"},
+      {"title": "Growth + Analytics", "outcomes": ["Read retention metrics", "Improve hooks", "Post consistently"], "tasks": ["Analyze top 10 posts", "A/B test titles"], "project": "Content performance report"}
+    ],
+    "portfolio_projects": ["30 reels challenge", "YouTube intro video", "Client promo video"],
+    "next_steps": ["Learn storytelling", "Learn client pitching", "Build editing portfolio"]
+  }
+]
