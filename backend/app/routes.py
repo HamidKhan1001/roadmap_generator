@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request, send_file
 from io import BytesIO
 
 from app.validators import validate_profile
-from app.roadmap_engine import generate_roadmap
+from app.roadmap_engine import generate_roadmap, get_tracks, get_resources
 from app.pdf_service import generate_roadmap_pdf
 from app.db import (
     save_roadmap_request,
@@ -19,6 +19,19 @@ def health_check():
         "status": "ok",
         "service": "Mittu API",
         "database": "postgresql"
+    })
+
+
+@api.get("/options")
+def get_options():
+    """Returns available options for the roadmap generator form."""
+    tracks = get_tracks()
+    resources = get_resources()
+    
+    return jsonify({
+        "success": True,
+        "tracks": [{"name": t.get("name"), "keywords": t.get("keywords")} for t in tracks],
+        "resources": resources,
     })
 
 
@@ -48,6 +61,12 @@ def create_roadmap():
         "profile": data,
         "roadmap": roadmap,
     }), 201
+
+
+@api.post("/roadmaps")
+def create_roadmap_v2():
+    """Alias for /roadmap endpoint - for frontend compatibility."""
+    return create_roadmap()
 
 
 @api.get("/roadmap/<int:request_id>")
