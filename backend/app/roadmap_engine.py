@@ -12,6 +12,16 @@ def load_json(filename):
         return json.load(file)
 
 
+def get_tracks():
+    """Load and return all available tracks."""
+    return load_json("tracks.json")
+
+
+def get_resources():
+    """Load and return all available resources."""
+    return load_json("resources.json")
+
+
 def normalize_text(value):
     if not value:
         return ""
@@ -122,7 +132,7 @@ def get_duration_weeks(track, profile):
     return max(base_weeks, 8)
 
 
-def get_resources(track_id, profile):
+def filter_resources_for_track(track_id, profile):
     resources = load_json("resources.json")
     
     preferred_platforms = profile.get("preferred_platforms") or []
@@ -198,5 +208,5 @@ def generate_roadmap(profile):
         "duration_weeks": duration_weeks,
         "weekly_hours": int(profile.get("weekly_hours", 6)),
         "phases": build_phases(track, duration_weeks),
-        "resources": get_resources(track["id"], profile)
+        "resources": filter_resources_for_track(track["id"], profile)
     }
