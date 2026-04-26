@@ -1,0 +1,31 @@
+{
+  "name": "mittu-roadmap-generator",
+  "description": "Mittu - A scalable roadmap generator MVP",
+  "repository": "https://github.com/HamidKhan1001/roadmap_generator",
+  "keywords": ["python", "flask", "postgresql", "learning"],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "env": {
+    "DATABASE_URL": {
+      "description": "Neon PostgreSQL connection string",
+      "required": true
+    },
+    "SECRET_KEY": {
+      "description": "Secret key for Flask app",
+      "required": true
+    },
+    "CORS_ORIGINS": {
+      "description": "Comma-separated list of allowed CORS origins",
+      "value": "https://your-vercel-app.vercel.app"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "eco"
+    }
+  }
+}
