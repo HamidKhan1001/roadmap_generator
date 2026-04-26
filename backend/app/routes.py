@@ -154,3 +154,9 @@ def download_pdf_from_saved_roadmap(request_id):
         as_attachment=True,
         download_name=f"mittu-roadmap-{request_id}.pdf",
     )
+
+
+@api.get("/roadmaps/<int:request_id>/pdf")
+def download_pdf_from_saved_roadmap_v2(request_id):
+    """Alias for /roadmap/{id}/pdf - for frontend compatibility."""
+    return download_pdf_from_saved_roadmap(request_id)

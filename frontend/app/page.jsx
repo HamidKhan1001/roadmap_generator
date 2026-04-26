@@ -150,7 +150,7 @@ function Roadmap({ data }) {
       <p className="badge">{r.duration_weeks} weeks · {r.weekly_hours} hrs/week</p>
       <h2>{r.track_name}</h2>
       <p>{r.summary}</p>
-      <a className="download" href={`${API_URL}/api/roadmaps/${data.id}/pdf`}>Download PDF</a>
+      <a className="download" href={`${API_URL}/api/roadmap/${data.request_id}/pdf`}>Download PDF</a>
       <div className="timeline">
         {r.phases.map((phase) => (
           <article className="phase" key={phase.title}>
