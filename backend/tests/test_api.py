@@ -88,3 +88,29 @@ def test_download_pdf_from_payload(client):
 
     assert response.status_code == 200
     assert response.content_type == "application/pdf"
+
+
+def test_quant_interest_generates_quant_roadmap(client):
+    payload = {
+        "name": "Hamid",
+        "email": "hamid@example.com",
+        "country": "Pakistan",
+        "education_level": "Bachelor",
+        "current_skill_level": "beginner",
+        "interest": "quant",
+        "goal": "Job",
+        "weekly_hours": 8,
+        "language_preference": "Urdu/Hindi",
+        "skills": "python basics, editing, excel",
+        "preferred_platforms": ["youtube", "docs", "course", "practice"]
+    }
+
+    response = client.post("/api/roadmap", json=payload)
+
+    assert response.status_code == 201
+
+    data = response.get_json()
+
+    assert data["success"] is True
+    assert data["roadmap"]["track_id"] == "quant_finance"
+    assert "Quant" in data["roadmap"]["track"]

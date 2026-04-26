@@ -76,7 +76,7 @@ export default function Home() {
           <p className="badge">Mittu AI Roadmap Builder</p>
           <h1>Turn your interest into a clear learning roadmap.</h1>
           <p className="subtitle">
-            Mittu reads your profile, chooses a practical track, saves your roadmap in MongoDB,
+            Mittu reads your profile, chooses a practical learning track, saves your roadmap data in Neon PostgreSQL,
             and generates the PDF only when you download it.
           </p>
         </div>

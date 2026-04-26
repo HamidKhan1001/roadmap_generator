@@ -1,111 +1,202 @@
 import json
+import math
 from pathlib import Path
-from typing import Dict, List, Any
-
-DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
 
-def load_json(filename: str):
-    with open(DATA_DIR / filename, "r", encoding="utf-8") as f:
-        return json.load(f)
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
 
 
-def get_tracks():
-    return load_json("tracks.json")
+def load_json(filename):
+    with open(DATA_DIR / filename, "r", encoding="utf-8") as file:
+        return json.load(file)
 
 
-def get_resources():
-    return load_json("resources.json")
+def normalize_text(value):
+    if not value:
+        return ""
+    if isinstance(value, list):
+        value = " ".join(str(item) for item in value)
+    return str(value).strip().lower()
 
 
-def keyword_score(text: str, keywords: List[str]) -> int:
-    t = text.lower()
-    return sum(1 for kw in keywords if kw.lower() in t)
+def tokenize(text):
+    text = normalize_text(text)
+    for char in [",", ".", "/", "-", "_", "|", ":", ";", "(", ")", "[", "]"]:
+        text = text.replace(char, " ")
+    return set(word.strip() for word in text.split() if word.strip())
 
 
-def choose_track(profile: Dict[str, Any], tracks: List[Dict[str, Any]]) -> Dict[str, Any]:
-    combined = " ".join([
-        profile.get("interest", ""),
-        profile.get("goal", ""),
-        " ".join(profile.get("skills", [])),
-    ]).lower()
+def score_track(track, profile):
+    interest = normalize_text(profile.get("interest"))
+    goal = normalize_text(profile.get("goal"))
+    skills = normalize_text(profile.get("skills"))
+    level = normalize_text(profile.get("current_skill_level"))
+    
+    combined_text = f"{interest} {goal} {skills} {level}"
+    combined_tokens = tokenize(combined_text)
+    
+    score = 0
+    
+    for keyword in track.get("keywords", []):
+        keyword_clean = normalize_text(keyword)
+        keyword_tokens = tokenize(keyword_clean)
+        
+        # Exact phrase match
+        if keyword_clean and keyword_clean in combined_text:
+            score += 10
+        
+        # Token subset match
+        if keyword_tokens and keyword_tokens.issubset(combined_tokens):
+            score += 6
+        
+        # Partial overlap
+        overlap = combined_tokens.intersection(keyword_tokens)
+        score += len(overlap) * 2
+    
+    title_tokens = tokenize(track.get("title", ""))
+    score += len(combined_tokens.intersection(title_tokens)) * 2
+    
+    return score
 
-    ranked = sorted(
-        tracks,
-        key=lambda track: keyword_score(combined, track.get("keywords", [])),
-        reverse=True,
-    )
-    return ranked[0]
 
-
-def estimate_duration_weeks(level: str, weekly_hours: int, track: Dict[str, Any]) -> int:
-    base = int(track.get("base_weeks", 16))
-    level_modifier = {"beginner": 1.25, "intermediate": 1.0, "advanced": 0.75}.get(level, 1.25)
-    hours_modifier = 10 / max(weekly_hours, 1)
-    weeks = round(base * level_modifier * hours_modifier)
-    return max(6, min(52, weeks))
-
-
-def build_phases(track: Dict[str, Any], total_weeks: int) -> List[Dict[str, Any]]:
-    modules = track.get("modules", [])
-    if not modules:
-        return []
-
-    phase_count = len(modules)
-    weeks_per_phase = max(1, total_weeks // phase_count)
-    phases = []
-    start = 1
-
-    for idx, module in enumerate(modules):
-        end = total_weeks if idx == phase_count - 1 else min(total_weeks, start + weeks_per_phase - 1)
-        phases.append({
-            "title": module["title"],
-            "weeks": f"Week {start}-{end}",
-            "outcomes": module.get("outcomes", []),
-            "tasks": module.get("tasks", []),
-            "project": module.get("project", ""),
+def choose_track(profile):
+    tracks = load_json("tracks.json")
+    scored_tracks = []
+    
+    for track in tracks:
+        scored_tracks.append({
+            "track": track,
+            "score": score_track(track, profile)
         })
-        start = end + 1
+    
+    scored_tracks.sort(key=lambda item: item["score"], reverse=True)
+    best = scored_tracks[0]
+    
+    if best["score"] <= 0:
+        return get_default_track(tracks, profile)
+    
+    return best["track"]
+
+
+def get_default_track(tracks, profile):
+    skills = normalize_text(profile.get("skills"))
+    interest = normalize_text(profile.get("interest"))
+    goal = normalize_text(profile.get("goal"))
+    combined = f"{skills} {interest} {goal}"
+    
+    if "excel" in combined or "data" in combined:
+        return find_track_by_id(tracks, "data_analyst")
+    if "editing" in combined or "video" in combined or "youtube" in combined:
+        return find_track_by_id(tracks, "video_content_creator")
+    if "python" in combined:
+        return find_track_by_id(tracks, "python_backend")
+    
+    return find_track_by_id(tracks, "ai_ml_engineer")
+
+
+def find_track_by_id(tracks, track_id):
+    for track in tracks:
+        if track.get("id") == track_id:
+            return track
+    return tracks[0]
+
+
+def get_duration_weeks(track, profile):
+    base_weeks = int(track.get("base_duration_weeks", 24))
+    weekly_hours = int(profile.get("weekly_hours", 6))
+    level = normalize_text(profile.get("current_skill_level"))
+    
+    if weekly_hours <= 4:
+        base_weeks = math.ceil(base_weeks * 1.4)
+    elif weekly_hours >= 10:
+        base_weeks = math.ceil(base_weeks * 0.8)
+    
+    if level in ["absolute beginner", "beginner", "new"]:
+        base_weeks = math.ceil(base_weeks * 1.15)
+    elif level in ["intermediate", "medium"]:
+        base_weeks = math.ceil(base_weeks * 0.9)
+    elif level in ["advanced"]:
+        base_weeks = math.ceil(base_weeks * 0.75)
+    
+    return max(base_weeks, 8)
+
+
+def get_resources(track_id, profile):
+    resources = load_json("resources.json")
+    
+    preferred_platforms = profile.get("preferred_platforms") or []
+    language_preference = normalize_text(profile.get("language_preference"))
+    country = normalize_text(profile.get("country"))
+    
+    if isinstance(preferred_platforms, str):
+        preferred_platforms = [
+            item.strip().lower()
+            for item in preferred_platforms.split(",")
+            if item.strip()
+        ]
+    
+    track_resources = [
+        resource for resource in resources
+        if resource.get("track_id") == track_id
+    ]
+    
+    def resource_score(resource):
+        score = 0
+        platform = normalize_text(resource.get("platform"))
+        region = normalize_text(resource.get("region"))
+        language = normalize_text(resource.get("language"))
+        
+        if platform in preferred_platforms:
+            score += 5
+        if country in ["pakistan", "india"] and region == "india_pakistan":
+            score += 4
+        if "urdu" in language_preference or "hindi" in language_preference:
+            if "urdu" in language or "hindi" in language:
+                score += 4
+        if language == "english":
+            score += 1
+        
+        return score
+    
+    track_resources.sort(key=resource_score, reverse=True)
+    return track_resources[:8]
+
+
+def build_phases(track, total_weeks):
+    phases = []
+    current_week = 1
+    
+    for index, phase in enumerate(track.get("phases", [])):
+        if index == len(track["phases"]) - 1:
+            end_week = total_weeks
+        else:
+            phase_weeks = max(1, round(total_weeks * float(phase.get("weight", 0.25))))
+            end_week = min(total_weeks, current_week + phase_weeks - 1)
+        
+        phases.append({
+            "title": phase["title"],
+            "weeks": f"{current_week}-{end_week}",
+            "outcomes": phase.get("topics", []),
+            "project": phase.get("projects", [])
+        })
+        
+        current_week = end_week + 1
+    
     return phases
 
 
-def match_resources(track_id: str, profile: Dict[str, Any], resources: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    language = profile.get("language_preference", "").lower()
-    country = profile.get("country", "").lower()
-    preferred = {p.lower() for p in profile.get("preferred_platforms", [])}
-
-    filtered = [r for r in resources if track_id in r.get("tracks", []) or "all" in r.get("tracks", [])]
-
-    def score(resource):
-        s = 0
-        if language and language in resource.get("language", "").lower():
-            s += 3
-        if country and country in [c.lower() for c in resource.get("regions", [])]:
-            s += 2
-        if resource.get("type", "").lower() in preferred:
-            s += 2
-        if resource.get("free", True):
-            s += 1
-        return s
-
-    return sorted(filtered, key=score, reverse=True)[:10]
-
-
-def generate_roadmap(profile: Dict[str, Any]) -> Dict[str, Any]:
-    tracks = get_tracks()
-    resources = get_resources()
-    track = choose_track(profile, tracks)
-    weeks = estimate_duration_weeks(profile["level"], profile["weekly_hours"], track)
-
+def generate_roadmap(profile):
+    track = choose_track(profile)
+    duration_weeks = get_duration_weeks(track, profile)
+    
     return {
         "track_id": track["id"],
-        "track_name": track["name"],
+        "track_name": track["title"],
+        "track": track["title"],
         "summary": track["summary"],
-        "duration_weeks": weeks,
-        "difficulty": profile["level"],
-        "weekly_hours": profile["weekly_hours"],
-        "phases": build_phases(track, weeks),
-        "resources": match_resources(track["id"], profile, resources),
-        "portfolio_projects": track.get("portfolio_projects", []),
-        "next_steps": track.get("next_steps", []),
+        "duration_weeks": duration_weeks,
+        "weekly_hours": int(profile.get("weekly_hours", 6)),
+        "phases": build_phases(track, duration_weeks),
+        "resources": get_resources(track["id"], profile)
     }
