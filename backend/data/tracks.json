@@ -10,7 +10,9 @@
       {"title": "Excel, Data Analysis, and Visualization", "weight": 0.25, "topics": ["Excel formulas", "Pivot tables", "Basic financial modeling", "Pandas", "NumPy", "Matplotlib", "Data cleaning"], "projects": ["Analyze monthly expenses and income", "Create a stock price dashboard in Excel or Python"]},
       {"title": "Math and Statistics for Quant Work", "weight": 0.25, "topics": ["Probability basics", "Mean, variance, standard deviation", "Correlation", "Regression", "Returns and volatility", "Risk metrics"], "projects": ["Calculate daily returns and volatility", "Compare risk between two stocks"]},
       {"title": "Finance and Trading Basics", "weight": 0.25, "topics": ["Stocks and indices", "Bonds basics", "Portfolio basics", "Technical indicators", "Moving averages", "Backtesting basics", "Risk management"], "projects": ["Backtest a simple moving-average strategy", "Create a beginner portfolio analysis report"]}
-    ]
+    ],
+    "portfolio_projects": ["Stock analysis tool", "Automated trading bot", "Financial dashboard"],
+    "next_steps": ["Join finance communities", "Apply for finance internships", "Start contributing to open-source finance projects"]
   },
   {
     "id": "ai_ml_engineer",
@@ -23,7 +25,9 @@
       {"title": "Math for ML", "weight": 0.2, "topics": ["Linear algebra basics", "Probability", "Statistics", "Gradient descent", "Loss functions"], "projects": ["Implement linear regression from scratch"]},
       {"title": "Machine Learning", "weight": 0.25, "topics": ["Regression", "Classification", "Decision trees", "Random forests", "SVM", "Model evaluation"], "projects": ["Train and evaluate a classification model"]},
       {"title": "Deep Learning and Deployment", "weight": 0.35, "topics": ["Neural networks", "CNNs", "Transformers basics", "FastAPI or Flask deployment", "Model APIs"], "projects": ["Deploy an ML model as an API"]}
-    ]
+    ],
+    "portfolio_projects": ["Classification model on real dataset", "Deployment API", "Computer vision or NLP project"],
+    "next_steps": ["Contribute to ML open source", "Participate in Kaggle competitions", "Apply for ML engineer roles"]
   },
   {
     "id": "python_backend",
@@ -36,7 +40,9 @@
       {"title": "Web APIs", "weight": 0.25, "topics": ["REST APIs", "Request validation", "JSON responses", "Error handling"], "projects": ["Student management API"]},
       {"title": "Databases", "weight": 0.25, "topics": ["PostgreSQL", "SQL basics", "Schema design", "Indexes"], "projects": ["Roadmap storage backend"]},
       {"title": "Production Readiness", "weight": 0.25, "topics": ["Tests", "Logging", "Gunicorn", "Deployment"], "projects": ["Production-ready API with tests"]}
-    ]
+    ],
+    "portfolio_projects": ["REST API with authentication", "Multi-user database application", "Deployed backend service"],
+    "next_steps": ["Deploy to Heroku or DigitalOcean", "Learn Docker and containerization", "Apply for backend developer positions"]
   },
   {
     "id": "data_analyst",
@@ -49,7 +55,9 @@
       {"title": "SQL Foundations", "weight": 0.25, "topics": ["SELECT queries", "Filtering", "Joins", "Grouping", "Aggregations"], "projects": ["Customer order analysis"]},
       {"title": "Python for Analysis", "weight": 0.25, "topics": ["Pandas", "NumPy", "Matplotlib", "CSV analysis"], "projects": ["Analyze a real dataset"]},
       {"title": "Dashboards and Portfolio", "weight": 0.25, "topics": ["Power BI", "Dashboard design", "Storytelling", "Portfolio presentation"], "projects": ["End-to-end data analyst portfolio project"]}
-    ]
+    ],
+    "portfolio_projects": ["Sales analysis dashboard", "Customer insights report", "Time-series analysis"],
+    "next_steps": ["Create portfolio on GitHub", "Apply for data analyst roles", "Join data analytics communities"]
   },
   {
     "id": "full_stack",
@@ -62,7 +70,9 @@
       {"title": "React and Next.js", "weight": 0.25, "topics": ["Components", "Props", "State", "Routing", "Forms"], "projects": ["Interactive dashboard"]},
       {"title": "Backend and APIs", "weight": 0.25, "topics": ["REST APIs", "Authentication", "PostgreSQL", "Validation"], "projects": ["Full-stack task manager"]},
       {"title": "Deployment and Portfolio", "weight": 0.25, "topics": ["Vercel", "Heroku", "Environment variables", "GitHub"], "projects": ["Deploy a production-ready full-stack app"]}
-    ]
+    ],
+    "portfolio_projects": ["Portfolio website", "Full-stack e-commerce app", "Social media clone"],
+    "next_steps": ["Deploy projects to Vercel", "Contribute to web open source", "Apply for full-stack developer roles"]
   },
   {
     "id": "video_content_creator",
@@ -75,6 +85,8 @@
       {"title": "Video Editing Skills", "weight": 0.25, "topics": ["Cuts", "Transitions", "Sound design", "Color correction", "Captions"], "projects": ["Edit 5 short-form videos"]},
       {"title": "Shooting and Storytelling", "weight": 0.25, "topics": ["Camera framing", "Lighting", "Voiceover", "Story structure"], "projects": ["Shoot and edit a mini vlog"]},
       {"title": "Publishing and Growth", "weight": 0.25, "topics": ["Thumbnails", "Titles", "Analytics", "Consistency", "Monetization basics"], "projects": ["Publish and analyze 10 posts"]}
-    ]
+    ],
+    "portfolio_projects": ["YouTube channel or reel series", "Before/after editing showcase", "30-second pitch video"],
+    "next_steps": ["Publish weekly content", "Engage with community", "Apply for sponsorships and monetization"]
   }
 ]

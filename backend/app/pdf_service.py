@@ -40,14 +40,23 @@ def generate_roadmap_pdf(profile, roadmap):
 
     story.append(Paragraph("Recommended Resources", styles["Section"]))
     for r in roadmap.get("resources", []):
-        text = f"<b>{r['title']}</b> ({r['type']}) - {r['url']}"
+        platform = r.get('platform', 'resource')
+        text = f"<b>{r['title']}</b> ({platform}) - {r['url']}"
         story.append(Paragraph(text, styles["BodyText"]))
 
     story.append(Paragraph("Portfolio Projects", styles["Section"]))
-    story.append(bullet_list(roadmap.get("portfolio_projects", []), styles))
+    portfolio_projects = roadmap.get("portfolio_projects", [])
+    if portfolio_projects:
+        story.append(bullet_list(portfolio_projects, styles))
+    else:
+        story.append(Paragraph("Build real-world projects to strengthen your portfolio.", styles["BodyText"]))
 
     story.append(Paragraph("Next Steps", styles["Section"]))
-    story.append(bullet_list(roadmap.get("next_steps", []), styles))
+    next_steps = roadmap.get("next_steps", [])
+    if next_steps:
+        story.append(bullet_list(next_steps, styles))
+    else:
+        story.append(Paragraph("Start with the first phase and progress systematically through the roadmap.", styles["BodyText"]))
 
     doc.build(story)
     buffer.seek(0)

@@ -208,5 +208,7 @@ def generate_roadmap(profile):
         "duration_weeks": duration_weeks,
         "weekly_hours": int(profile.get("weekly_hours", 6)),
         "phases": build_phases(track, duration_weeks),
-        "resources": filter_resources_for_track(track["id"], profile)
+        "resources": filter_resources_for_track(track["id"], profile),
+        "portfolio_projects": track.get("portfolio_projects", []),
+        "next_steps": track.get("next_steps", [])
     }
