@@ -39,7 +39,7 @@ def get_options():
 def create_roadmap():
     data = request.get_json(silent=True) or {}
 
-    errors = validate_profile(data)
+    profile, errors = validate_profile(data)
 
     if errors:
         return jsonify({
@@ -47,10 +47,10 @@ def create_roadmap():
             "errors": errors
         }), 400
 
-    roadmap = generate_roadmap(data)
+    roadmap = generate_roadmap(profile)
 
     saved = save_roadmap_request(
-        profile=data,
+        profile=profile,
         roadmap=roadmap,
     )
 
@@ -58,7 +58,7 @@ def create_roadmap():
         "success": True,
         "request_id": saved["id"],
         "created_at": saved["created_at"],
-        "profile": data,
+        "profile": profile,
         "roadmap": roadmap,
     }), 201
 
