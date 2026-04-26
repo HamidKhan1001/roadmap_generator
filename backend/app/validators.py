@@ -22,4 +22,18 @@ def validate_profile(data):
     if weekly_hours < 1 or weekly_hours > 80:
         errors["weekly_hours"] = "Weekly hours must be between 1 and 80."
 
-    return {}, errors
+    profile = {
+        "name": name,
+        "email": data.get("email"),
+        "country": data.get("country"),
+        "interest": interest,
+        "goal": goal,
+        "weekly_hours": weekly_hours,
+        "current_skill_level": data.get("current_skill_level"),
+        "education_level": data.get("education_level"),
+        "language_preference": data.get("language_preference"),
+        "preferred_platforms": data.get("preferred_platforms"),
+        "skills": data.get("skills"),
+    }
+
+    return profile, errors
